@@ -35,6 +35,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("com.google.cloud:google-cloud-vision:1.35.0")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -57,4 +58,23 @@ allOpen {
 	annotation("javax.persistence.Entity")
 	annotation("javax.persistence.Embeddable")
 	annotation("javax.persistence.MappedSuperclass")
+}
+
+tasks.register<Jar>("uberJar") {
+	archiveClassifier.set("uber")
+
+	manifest {
+		attributes(
+				"Main-Class" to "mytest.AppKt",
+				"Implementation-Title" to "Gradle",
+				"Implementation-Version" to archiveVersion
+		)
+	}
+
+	from(sourceSets.main.get().output)
+
+	dependsOn(configurations.runtimeClasspath)
+	from({
+		configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+	})
 }

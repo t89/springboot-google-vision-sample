@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# DO NOT COMMIT OUR KEY
+./credentials.json

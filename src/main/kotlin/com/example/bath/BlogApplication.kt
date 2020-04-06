@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BathApplication
+class BlogApplication
 
 fun main(args: Array<String>) {
-	runApplication<BathApplication>(*args) {
+	runApplication<BlogApplication>(*args) {
 		setBannerMode(Banner.Mode.OFF)
 	}
 }
