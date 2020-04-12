@@ -52,7 +52,7 @@ COPY ./credentials.json .
 
 # Activate gcloud service with our key
 RUN gcloud auth activate-service-account --key-file=./credentials.json
-RUN export GOOGLE_APPLICATION_CREDENTIALS=./credentials.json
+ENV GOOGLE_APPLICATION_CREDENTIALS=./credentials.json
 
 # Copy our executable
 COPY ./build/libs/*.jar ./bath.jar
